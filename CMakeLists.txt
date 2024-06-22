@@ -12,4 +12,6 @@ add_executable(learn_c_programming_language main.c io.c
         array/one_dimension/array.c
         array/one_dimension/array.h
         array/two_dimension/2d_array.c
-        array/two_dimension/2d_array.h)
+        array/two_dimension/2d_array.h
+        pointer/ptr.c
+        pointer/ptr.h)
