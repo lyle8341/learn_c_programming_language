@@ -130,8 +130,6 @@ gcc -nostartfiles -e main program.c -o my_program
 ### 数组
 + 数组名表示数组的首地址，因此数组名也是一种指针
 
+![array pointer](images/数组_指针.jpg)
 
-
-
-
-![nice](images/数组_指针.jpg)
+![数组栈上分配](images/数组栈上分配.png)

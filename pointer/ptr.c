@@ -24,3 +24,13 @@ void array_ptr() {
 
     printf("&ch: \t%p\n", &ch);
 }
+
+void traverse() {
+    int ch[] = {12, 21, 30, 45};
+
+    for (int i = 0; i < sizeof(ch) / sizeof(ch[0]); ++i)
+        printf("ch[%d]: = %d\n", i, ch[i]);
+
+    for (int i = 0; i < sizeof(ch) / sizeof(ch[0]); ++i)
+        printf("ch[%d]: = %d\n", i, *(ch + i));
+}

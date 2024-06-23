@@ -10,12 +10,16 @@
 
 int main() {
 
-    //array_ptr();
+    int b[4] = {12, 22, 32, 42};
+    int a[4];
 
-    int a = 90;
+    a[4] = 100;
+    printf("b[0] = %d\n", b[0]);
 
-    printf("%p\n", a);
-    printf("%p\n", &a);
 
+    //         mov     DWORD PTR [rbp-16], 12
+    //        mov     DWORD PTR [rbp-12], 22
+    //        mov     DWORD PTR [rbp-8], 32
+    //        mov     DWORD PTR [rbp-4], 42
     return 0;
 }
