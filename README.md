@@ -133,3 +133,16 @@ gcc -nostartfiles -e main program.c -o my_program
 ![array pointer](images/数组_指针.jpg)
 
 ![数组栈上分配](images/数组栈上分配.png)
+
+
+# 字符串
+![](images/字符串指针.png)
+
+1.输出
+```c
+    char *str = "hello";
+    printf("%s\n", str);
+    printf("%c\n", *str);
+```
+
+printf("%c", *(*a + i));
