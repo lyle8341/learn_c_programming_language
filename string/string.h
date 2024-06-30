@@ -1,0 +1,8 @@
+//
+// Created by 李玉龙 on 2024/6/25.
+//
+
+#ifndef LEARN_C_PROGRAMMING_LANGUAGE_STRING_H
+#define LEARN_C_PROGRAMMING_LANGUAGE_STRING_H
+void string();
+#endif //LEARN_C_PROGRAMMING_LANGUAGE_STRING_H

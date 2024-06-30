@@ -136,7 +136,7 @@ gcc -nostartfiles -e main program.c -o my_program
 
 
 # 字符串
-![](images/字符串指针.png)
+![字符串指针](images/字符串指针.png)
 
 1.输出
 ```c
@@ -145,4 +145,24 @@ gcc -nostartfiles -e main program.c -o my_program
     printf("%c\n", *str);
 ```
 
-printf("%c", *(*a + i));
+### free字符串常量（非法）
+```c
+char *StrConst() {
+    char *p = "zhangsan lisi wangwu zhaoliu";
+    return p;
+}
+//调用
+char *p = StrConst();
+printf("%s\n", p);
+free(p); // pointer being freed was not allocated
+```
++ **free不能重复调用**
+
+
+> 1.p指向在函数体中申请的堆空间的首址
+  + ![二级指针传参](images/二级指针传参.jpg)
+  + ![一级指针传参](images/一级指针传参.jpg)
+
+### [char str[] = "hello world"; 编译器做了什么](https://blog.csdn.net/weixin_44200553/article/details/137482838)
+
+

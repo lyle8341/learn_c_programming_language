@@ -7,12 +7,16 @@
 #include "array/two_dimension/2d_array.h"
 #include "pointer/ptr.h"
 #include <stdlib.h>
+#include <string.h>
+
+char *getMemory(void) {
+    char p[] = "hello world";
+    return p;
+}
 
 int main() {
-
-    char ch1[30] = "Stick"    "to it will ""be something";
-    printf("ch1  =  %s \n", ch1);
-
+    char x = 'h';
+    printf("%d\n", x);
 
     return 0;
 }

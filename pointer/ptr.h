@@ -8,4 +8,5 @@
 void ptr_size();
 void array_ptr();
 void traverse();
+void ptrArray();
 #endif //LEARN_C_PROGRAMMING_LANGUAGE_PTR_H
