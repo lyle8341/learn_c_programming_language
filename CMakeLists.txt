@@ -5,17 +5,33 @@ project(learn_c_programming_language C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(learn_c_programming_language main.c io.c
-        io.h
-        op_exp/op_exp.c
-        op_exp/op_exp.h
-        position.c
-        position.h
-        array/one_dimension/array.c
-        array/one_dimension/array.h
-        array/two_dimension/2d_array.c
-        array/two_dimension/2d_array.h
-        pointer/ptr.c
-        pointer/ptr.h
-        string/string.c
-        string/string.h)
+
+#搜索文件方式
+#CMAKE_CURRENT_SOURCE_DIR 宏表示当前访问的CMakeLists.txt文件所在的路径
+
+#方式一：
+#[[
+aux_source_directory(${PROJECT_SOURCE_DIR} SRC)
+]]
+
+#方式二：
+# GLOB 将指定目录下搜索到的满足条件的所有文件名生成一个列表，并存储到变量中
+# GLOB_RECURSE 递归搜索指定目录...
+
+file(GLOB_RECURSE SRC ${PROJECT_SOURCE_DIR}/*.c)
+message(STATUS "搜索结果: ${SRC}")
+
+add_executable(learn_c_programming_language main.c
+        snake/v1.c
+        snake/v1.c
+        snake/v1.h
+        snake/v2.c
+        snake/v2.h)
+
+
+#在本机查找依赖
+find_package(Curses REQUIRED) #查找Curses库
+message(STATUS "CURSES_INCLUDE_DIR: ${CURSES_INCLUDE_DIR}")
+include_directories(${CURSES_INCLUDE_DIR}) #添加Curses库的头文件目录
+message(STATUS "CURSES_LIBRARY: ${CURSES_LIBRARY}")
+target_link_libraries(learn_c_programming_language ${CURSES_LIBRARY}) #链接Curses库

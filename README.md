@@ -165,4 +165,26 @@ free(p); // pointer being freed was not allocated
 
 ### [char str[] = "hello world"; 编译器做了什么](https://blog.csdn.net/weixin_44200553/article/details/137482838)
 
+## C 源文件被编译成可执行程序总共需要四步
 
+> 假设源文件叫 main.c。
+
+```
+1）预处理：gcc -E main.c -o main.i，根据 C 源文件得到预处理之后的文件。这一步只是对 main.c 进行了预处理，比如宏定义展开、头文件展开、条件编译等等，同时将代码中的注释删除，注意：这一步并不会检查语法；
+2）编译：gcc -S main.i -o main.s，将预处理后的文件进行编译、生成汇编文件，这一步会进行语法检测、变量的内存分配等等；
+3）汇编：gcc -c main.s -o main.o，根据汇编文件生成目标文件；
+4）链接：gcc main.o -o main.exe，程序是需要依赖各种库的，可以是静态库也可以是动态库，因此需要将目标文件和其引用的库链接在一起，最终才能构成可执行的二进制文件；
+```
+
+
+
+
+
+
+
+
+### 反汇编
+
+> 1. brew install binutils
+
+> 2. objdump -dS main
