@@ -271,7 +271,8 @@ int main(int argc, char *argv[]) {
 ### 指针数组
 
 ### 指针函数
-> 返回指针的函数
+> 返回指针的函数  
+> int *fun(int x, int y);
 
 + 不要返回临时变量的地址
 + 可以返回动态申请的空间的地址
@@ -283,9 +284,119 @@ int main(int argc, char *argv[]) {
 
 + 函数指针定义
   + **函数返回值类型 (\* 指针变量名) (函数参数列表)**
+  + **(\* 指针变量名)** 括号的目的是改变优先级。即变量和谁先结合
 
++ 函数指针演示
+  ```c
+  //指针函数：返回指针的函数
+  int *fun(int num) {
+      return malloc(num);
+  }
+  
+  int plus(int a, int b) {
+      return a + b;
+  }
+  
+  int main(int argc, char *argv[]) {
+      //函数指针
+      int (*pPlus)(int a, int b) = plus;
+      int i = pPlus(4, 5);
+      printf("pointer: %d\n", i);
+      return 0;
+  }
+  ```
++ 函数指针演示2
+```c
+int plus(int a, int b) {
+    return a + b;
+}
 
+int sub(int a, int b) {
+    return a - b;
+}
 
+int multi(int a, int b) {
+    return a * b;
+}
+
+int division(int a, int b) {
+    return a / b;
+}
+
+int mod(int a, int b) {
+    return a % b;
+}
+
+int main(int argc, char *argv[]) {
+    int (*operate)(int, int) = NULL;
+    int a, b;
+    char op;
+    int result = 0;
+    printf("请输入表达式: ");
+    scanf("%d %c %d", &a, &op, &b);
+    switch (op) {
+        case '+':
+            //result = plus(a, b);
+            operate = plus;
+            break;
+        case '-':
+            //result = sub(a, b);
+            operate = sub;
+            break;
+        case '*':
+            //result = multi(a, b);
+            operate = multi;
+            break;
+        case '/':
+            //result = division(a, b);
+            operate = division;
+            break;
+        case '%':
+            //result = mod(a, b);
+            operate = mod;
+            break;
+        default:
+            printf("不支持");
+            break;
+    }
+//    printf("计算结果: %d\n", result);
+    printf("计算结果: %d\n", operate(a, b));
+    return 0;
+}
+```
+
+### 字符串
+```c
+int main(int argc, char *argv[]) {
+    //字符数组的形式，可以改变存储的值，但是不能改变指向
+    char name[10] = "lyle";
+    //存储在常量区，不可以改变指向内存空间的值，但是可以改变指向
+    char *p_name = "lyle";
+    //name可以修改，p_name不能修改
+    name[0] = 'L';
+    //name = "good"; //数组名是常量，不可以改变指向
+    strcpy(name, "good");
+    printf("%p %p %p\n", name, p_name, "lyle");
+    puts(name);
+//    p_name[0] = 'L'; //错误
+//    puts(p_name);
+    return 0;
+}
+```
+```c
+int main(int argc, char *argv[]) {
+    /*char name[10] = {0};
+    fgets(name, 10, stdin);
+    puts(name);*/
+
+    //char *const p_name 此处const禁止改变p_name的指向
+    char *p_name = malloc(100 * sizeof(char));
+    fgets(p_name, 100, stdin);
+    puts(p_name);
+    //p_name[0] = 'F'; //动态内存分配的可以修改，常量区不可以修改
+    return 0;
+}
+```
 
 ## 优先级
 
