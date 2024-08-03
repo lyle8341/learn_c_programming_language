@@ -127,8 +127,53 @@ gcc -nostartfiles -e main program.c -o my_program
 + 空指针的作用是防止指针变量变成野指针。
 + 指针变量+n，指针往后偏移了n个数据（不是字节）
 
++ 野指针
+  > 未被初始化的指针
+
++ 空指针
+  > 被赋值为NULL的指针，它不指向任何的对象或者函数  
+  > 空指针不能直接使用，赋值空指针目的是判断，然后再操作
+
++ 万能指针
+  + void *
+  + 可以指向任何地址
+    ```c
+    int apge = 37;
+    void *p = &age;
+    ```
+  + 可以隐式自动转化为其它类型指针
+    ```c
+    int *pi = p;
+    ```
+  + 不能对void *取值操作，因为它没有类型，或者说不能判断存储的是什么类型
+    ```c
+    printf("%d\n", *p); //error
+    printf("%d\n", *(int *)p);//right
+    ```
+
+
+### typedef
++ typedef 类型 别名
+  + typedef int INT; //INT 就是我们定义的新类型，代替int
+  + typedef void (*PFUNA)(int a);//PFUNA就是我们定义的新类型
+
+- typedef的一个重要用途是定义机器无关的类型
+  - typedef long double Real;
+  - typedef double Real;
+  - typedef float Real;
+
+- typedef 为现有类型创建别名
+  - typedef unsigned int UInt32;
+  - typedef int IntArray[10];
+    - IntArray arr;
+
+
 ### 数组
-+ 数组名表示数组的首地址，因此数组名也是一种指针
++ 数组名表示数组首元素的地址，因此数组名也是一种指针
++ 比如数组arr
+  + arr表示首元素地址
+  + &arr表示整个数组的首地址
+  + arr和&arr值相同，但是意义不同，arr+1表示第二个元素的地址；&arr+1表示整个数组长度后的地址
 
 ![array pointer](images/数组_指针.jpg)
 
@@ -176,10 +221,97 @@ free(p); // pointer being freed was not allocated
 4）链接：gcc main.o -o main.exe，程序是需要依赖各种库的，可以是静态库也可以是动态库，因此需要将目标文件和其引用的库链接在一起，最终才能构成可执行的二进制文件；
 ```
 
+### 数组指针
+```c
+int main(int argc, char *argv[]) {
+    int ages[] = {23, 45, 76, 90};
+    int *p = ages; //一维数组指针
+    for (int i = 0; i < sizeof(ages) / sizeof(ages[0]); ++i) {
+        printf("*(p+%d): %d\n", i, *(p + i));
+    }
+    for (int i = 0; i < sizeof(ages) / sizeof(ages[0]); ++i) {
+        printf("ages[%d]: %d\n", i, ages[i]);
+    }
+    return 0;
+}
+```
+```c
+int main(int argc, char *argv[]) {
+    int arr[3][2] = {
+            {1, 3},
+            {5, 2},
+            {7, 4}
+    };
+    int (*p)[2] = arr; //二维数组指针，2是列
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 2; ++j) {
+//            printf("%d\t", arr[i][j]);
+//            printf("%d\t", p[i][j]);
+//            printf("%d\t", *(*(arr + i) + j)); //3️⃣
+            /**
+             * 第三部3️⃣的演变过程
+             * printf("%d\t", arr[i][j]);
+             * printf("%d\t", *(arr[i] + j));
+             * printf("%d\t", *(*(arr + i) + j));
+            */
+        }
+        printf("\n");
+    }
+    return 0;
+}
+```
+```c
+//用一维数组的方式访问二维数组
+    int *parr = arr;//arr是二维数组
+    for (int i = 0; i < row * column; ++i) {
+        printf("%d ", parr[i]);
+    }
+```
+
+### 指针数组
+
+### 指针函数
+> 返回指针的函数
+
++ 不要返回临时变量的地址
++ 可以返回动态申请的空间的地址
++ 可以返回静态变量的地址
+
+### 函数指针
+> 如果在程序中定义了一个函数，那么在运行时系统就会为这个函数代码分配一段存储空间这段存储空间的首地址称为这个函数的地址，
+> 而且函数名表示的就是这个地址，既然是地址我们就可以定义一个变量来存放，这个指针变量就叫做函数指针变量，简称函数指针
+
++ 函数指针定义
+  + **函数返回值类型 (* 指针变量名) (函数参数列表)**
 
 
 
 
+## 优先级
+
+
+### 内存四区/存储类别
++ 存储类别
+  + 自动型 auto
+    + (auto) int age = 18
+    + 编译器自动回收变量的内存
+  + 静态型 static
+    + 在程序运行期间只初始化一次，不随作用域的结束而销毁
+    + 生命周期从创建开始到程序执行结束
+    + 静态变量和全局变量一样，会自动初始化为0
+    + 改变生命周期｜限定访问范围
+  + 寄存器 register
+    + 变量存储在寄存器中
+    + 此时不能对变量取地址
+    + for循环时候编译器会做这种优化
+  + 外部型 extern
+    + 全局变量默认就是extern的，如果不想让全局变量在别的文件里面被访问，那么使用static修饰
+
+
+```c
+ int age = 10; ===> auto int age = 10;
+
+```
 
 
 
