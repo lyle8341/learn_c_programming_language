@@ -452,7 +452,7 @@ struct tag才是结构体类型，tag只是结构体的标签
     struct Student lyle;
     ```
 + typedef结构体
-  + [typedef结构体](images/结构体(结构体类型和结构体标签).jpg)
+  + ![typedef结构体](images/结构体(结构体类型和结构体标签).jpg)
 
 
 ### 反汇编
