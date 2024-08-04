@@ -425,6 +425,35 @@ int main(int argc, char *argv[]) {
 ```
 
 
+## 结构体
+```c
+//tag:结构体标签
+//member:变量定义
+//成员分号分隔
+//末尾的分号不可缺少
+struct tag{
+    member1;
+    member2;
+    member3;
+};
+struct tag才是结构体类型，tag只是结构体的标签
+```
+
++ 结构体变量定义方式
+  + ```c
+    struct Student{
+      int number;
+      char name[20];
+      int age;
+    } zhangSan, lisi;
+    ```
+  + ```c
+    //struct Student才是结构体类型，而Student只是结构体标签，不能用来定义变量
+    struct Student lyle;
+    ```
++ typedef结构体
+  + [typedef结构体](images/结构体(结构体类型和结构体标签).jpg)
+
 
 ### 反汇编
 
