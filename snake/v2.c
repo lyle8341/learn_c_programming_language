@@ -11,7 +11,7 @@
 #include "v2.h"
 
 #define MAX_SCORE 256
-#define FRAME_TIME 110000
+#define FRAME_TIME 190000
 
 typedef struct {
     int x;
@@ -24,7 +24,7 @@ char score_message[16];
 bool skip = false;
 bool is_running = true;
 
-int screen_width = 50;
+int screen_width = 85;
 int screen_height = 40;
 
 // initialize screen
