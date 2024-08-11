@@ -470,13 +470,42 @@ struct tag才是结构体类型，tag只是结构体的标签
     + 从理论上讲，对于任何变量的访问都可以从任何地址开始访问，但是事实上不是如此，实际上访问特定类型的变量只能在特定的地址访问，这就需要各个变量在空间上按一定规则排列，这就是内存对齐
   + 字节对齐规则
     + 1.结构体变量的首地址能够被其最宽基本类型成员的大小所整除；
+      + ```c
+        struct Node1 {
+            int a;
+            char b;
+        };
+        struct Node1 n;
+        printf("结构体首地址: %p\n", &n);//0x7ff7bde992a0 <==> 140702019850912 / 4 = 0x1FFDEF7A64A8
+        ```
+      + ![struct_memory.png](images/struct_memory.png)
     + 2.结构体每个成员相对于结构体首地址的偏移量都是成员大小的整数倍，如有需要编译器会在成员之间加上填充字节
-    + 3.结构体的总大小为结构体最宽基本类型成员大小的整数倍，如有需要编译器会在最末一个成员之后加上填充字节
+      + ![复杂偏移量](images/复杂偏移量.png)
+    + 3.**结构体的总大小为结构体最宽基本类型成员大小的整数倍**，如有需要编译器会在最末一个成员之后加上填充字节
+
 
 + 位段（位域）
   + c语言允许在一个结构体中以位为单位来指定其成员所占内存长度，这种以位为单位的成员称为位段。利用位段能够用较少的位数存储数据
   + ```c
-     
+    // 整数 对应的二进制输出
+    struct Bit {
+    unsigned char bit0: 1;
+    unsigned char bit1: 1;
+    unsigned char bit2: 1;
+    unsigned char bit3: 1;
+    unsigned char bit4: 1;
+    unsigned char bit5: 1;
+    unsigned char bit6: 1;
+    unsigned char bit7: 1;
+    };
+
+    int main() {
+    unsigned char num = 51;
+    struct Bit *p = (struct Bit *) &num;
+    printf("%d%d%d%d %d%d%d%d\n", p->bit0, p->bit1, p->bit2, p->bit3, p->bit4, p->bit5, p->bit6, p->bit7);
+    
+        return 0;
+    }   
     ```
 
 
