@@ -516,7 +516,37 @@ struct tag才是结构体类型，tag只是结构体的标签
   + **图片中最后打印输出的数据顺序是从低地址->高地址，bit0\~bit7 bit0\~bit7 bit0\~bit7 bit0\~bit7**
 
 
+### union
++ 联合（共用体）：多个成员共享一块内存空间，同一时刻只能存在一个成员
++ 联合的内存大小：是最大的成员所占的内存大小
 
+### 枚举
+```c
+//枚举类型中的枚举常量，从0开始编号并自增的
+enum Week {
+    mo, tu, we, th, fr, sa, su
+};
+//改变枚举常量的值，在定义的时候，赋一个值
+enum Month {
+    january = 1,
+    february,
+    march,
+    april,
+    may = 12,
+    june,
+    july,
+    august,
+    september,
+    october,
+    november,
+    december
+};
+```
++ 枚举使用
+  + ```c
+    enum Week w = su;
+    enum Week w1 = 3;
+    ```
 
 
 
