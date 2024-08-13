@@ -513,7 +513,7 @@ struct tag才是结构体类型，tag只是结构体的标签
 
 + 结构体在内存中每一位的存储概览
   + ![结构体真实内存中每一个bit](images/结构体真实内存中每一个bit.jpg)
-  + **图片中最后打印输出的数据顺序是从低地址->高地址，bit0~bit7 bit0~bit7 bit0~bit7 bit0~bit7**
+  + **图片中最后打印输出的数据顺序是从低地址->高地址，bit0\~bit7 bit0\~bit7 bit0\~bit7 bit0\~bit7**
 
 
 
