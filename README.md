@@ -18,9 +18,6 @@
 > 如果该文件不存在，继续检索，系统的头文件目录（标准C安装的目录），如果是<>，编译器
 > 只会去系统头文件目录下检索
 
-
-
-
 ### 整形常量
 ```shell
 10          代表int类型
@@ -548,14 +545,122 @@ enum Month {
     enum Week w1 = 3;
     ```
 
+### 文件
++ 文件打开与关闭
+  ```c
+  void fileOpenAndClose() {
+      //打开文件
+      FILE *fp = fopen("data.txt0", "r");
+      //判断一下文件是否打开成功
+      if (!fp) {
+          //输出一下详细的错误原因
+          perror("错误原因");
+      }
+      //关闭文件
+      fclose(fp);
+  }
+  ```
++ 字符写入
+  ```c
+  void charWrite() {
+      //打开文件
+      FILE *fp = fopen("data.txt", "w");
+      //判断一下文件是否打开成功
+      if (!fp) {
+          //输出一下详细的错误原因
+          perror("错误原因");
+      }
+      //write
+      for (int i = 0; i < 26; ++i) {
+          int input = fputc('a' + i, fp);
+          printf("%c", input);
+      }
+      //中文
+      char name[] = "曹操";
+      for (int i = 0; i < strlen(name); ++i) {
+          putc(name[i], fp);
+      }
+      //关闭文件
+      fclose(fp);
+  }
+  ```
++ 字符读取
+  ```c
+  void reset(FILE *p) {
+      rewind(p);
+      putchar('\n');
+  }
+  
+  void charRead() {
+      //打开文件
+      FILE *fp = fopen("data.txt", "r");
+      //判断一下文件是否打开成功
+      if (!fp) {
+          //输出一下详细的错误原因
+          perror("错误原因");
+      }
+      /* //方式一
+       while (true) {
+           int c = fgetc(fp);
+           if (EOF == c) {
+               break;
+           }
+           putchar(c);
+       }
+       reset(fp);
+       //方式二（临时变量为int类型）
+       int c;
+       while ((c = fgetc(fp)) != EOF) {
+           putchar(c);
+       }
+       reset(fp);*/
+      //方式三
+      int tmp = fgetc(fp);
+      while (EOF != tmp) {
+          putchar(tmp);
+          tmp = fgetc(fp);
+      }
+      if (feof(fp)) {
+          printf("\nEnd of file reached.");
+      } else {
+          printf("\nSomething went wrong.~");
+      }
+      //关闭文件
+      fclose(fp);
+  }
+  ```
++ **判断文件结尾**
+  + fgetc()不仅是遇到文件结尾时返回EOF，而且当发生错误时，也会返回EOF。因此，C语言又提供了feof()函数，用来保证确实是到了文件结尾
+  + getc()读取文件的最后一个字符以后，C语言的feof()函数依然返回0，表明没有到达文件结尾；只有当fgetc()向后再读取一个字符（即越过最后一个字符），feof()才会返回一个非零值，表示到达文件结尾
 
-
-
-
-
-
-
-
++ 字符串读取
+  ```c
+  /**
+   * fgets最多只能读取一行数据，不能跨行
+   * @param _Buffer 字符数组（存储读取的字符串）
+   * @param _maxCount 要读取的字符数量（不要超过buffer数组的大小）
+   * @param _stream 文件指针
+   */
+  char *fgets(char *_Buffer, int _maxCount, FILE *_stream);
+  ```
+  ```c
+  int main() {
+      FILE *fp = fopen("data.txt", "r");
+  //    char buffer[256] = {0};
+  //    char *buffer = malloc(256);
+  //    fgets(buffer, 256, fp);
+  //    puts(buffer);
+  //    free(buffer);
+  
+      while(!feof(fp)){
+          char buffer[256] = {0};
+          fgets(buffer, 256, fp);
+          printf("%s", buffer);
+      }
+      fclose(fp);
+      return 0;
+  }
+  ```
 
 
 
