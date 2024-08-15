@@ -36,3 +36,7 @@ message(STATUS "CURSES_INCLUDE_DIR: ${CURSES_INCLUDE_DIR}")
 include_directories(${CURSES_INCLUDE_DIR}) #添加Curses库的头文件目录
 message(STATUS "CURSES_LIBRARY: ${CURSES_LIBRARY}")
 target_link_libraries(learn_c_programming_language ${CURSES_LIBRARY}) #链接Curses库
+
+
+set(GCC_COVERAGE_COMPILE_FLAGS "-lncurses")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )

@@ -1,20 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <ncurses.h>
 
 int main() {
-    FILE *fp = fopen("data.txt", "r");
-//    char buffer[256] = {0};
-//    char *buffer = malloc(256);
-//    fgets(buffer, 256, fp);
-//    puts(buffer);
-//    free(buffer);
+    initscr();
+    WINDOW * win = newwin(5, 6, 5, 6);
 
-    while(!feof(fp)){
-        char buffer[256] = {0};
-        fgets(buffer, 256, fp);
-        printf("%s", buffer);
-    }
-    fclose(fp);
+    getch();
+
+    endwin();
     return 0;
 }
