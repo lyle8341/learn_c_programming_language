@@ -19,7 +19,7 @@ aux_source_directory(${PROJECT_SOURCE_DIR} SRC)
 # GLOB_RECURSE 递归搜索指定目录...
 
 file(GLOB_RECURSE SRC ${PROJECT_SOURCE_DIR}/*.c)
-message(STATUS "搜索结果: ${SRC}")
+#message(STATUS "搜索结果:\t${SRC}")
 
 add_executable(learn_c_programming_language main.c
         snake/v1.c
@@ -32,9 +32,9 @@ add_executable(learn_c_programming_language main.c
 
 #在本机查找依赖
 find_package(Curses REQUIRED) #查找Curses库
-message(STATUS "CURSES_INCLUDE_DIR: ${CURSES_INCLUDE_DIR}")
+message(STATUS "CURSES_INCLUDE_DIR:\t${CURSES_INCLUDE_DIR}")
 include_directories(${CURSES_INCLUDE_DIR}) #添加Curses库的头文件目录
-message(STATUS "CURSES_LIBRARY: ${CURSES_LIBRARY}")
+message(STATUS "CURSES_LIBRARY:\t${CURSES_LIBRARY}")
 target_link_libraries(learn_c_programming_language ${CURSES_LIBRARY}) #链接Curses库
 
 
