@@ -23,7 +23,6 @@ message(STATUS "搜索结果: ${SRC}")
 
 add_executable(learn_c_programming_language main.c
         snake/v1.c
-        snake/v1.c
         snake/v1.h
         snake/v2.c
         snake/v2.h
@@ -40,4 +39,4 @@ target_link_libraries(learn_c_programming_language ${CURSES_LIBRARY}) #链接Cur
 
 
 set(GCC_COVERAGE_COMPILE_FLAGS "-lncurses")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )

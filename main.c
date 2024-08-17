@@ -1,28 +1,25 @@
-#include <sys/time.h>
+#include <unistd.h> ////Header file for sleep(). man 3 sleep for details.
 #include <stdio.h>
-#include <unistd.h>
+#include <pthread.h>
 
-/**
- *
- * @param time 秒
- */
-void timer(long time) {
-    clock_t start;
-    start = clock();
-    while (1) {
-        if ((clock() - start) >= (time * CLOCKS_PER_SEC)) {
-            break;
-        }
-    }
+//create a global variable to change it in threads
+int g = 0;
+
+void *myThreadFun(void *vargp) {
+    //store the value argument passed to this thread
+    int myId = getpid();
+    static int s = 0;
+    ++s;
+    ++g;
+    printf("Thread ID: %d, Static: %d, Global: %d\n", myId, ++s, ++g);
+    return NULL;
 }
 
-
 int main() {
-
-    for (int i = 0; i < 10; ++i) {
-        timer(1);
-        printf("%d\n", i);
+    pthread_t tid;
+    for (int i = 0; i < 3; ++i) {
+        pthread_create(&tid, NULL, myThreadFun, NULL);
     }
-    getchar();
+    pthread_exit(NULL);
     return 0;
 }

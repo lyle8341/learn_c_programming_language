@@ -801,7 +801,22 @@ enum Month {
       }
       ```
 
-
++ 定时器
+  ```c
+  /**
+   *
+   * @param time 秒
+   */
+  void timer(long time) {
+      clock_t start;
+      start = clock();
+      while (1) {
+          if ((clock() - start) >= (time * CLOCKS_PER_SEC)) {
+              break;
+          }
+      }
+  }
+  ```
 
 
 
