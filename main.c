@@ -1,21 +1,28 @@
-#include <ncurses.h>
-#include <stdlib.h>
+#include <sys/time.h>
+#include <stdio.h>
+#include <unistd.h>
 
-int main()
-{
-    initscr();			/* Start curses mode 		  */
-    printw("Hello World !!!\n");	/* Print Hello World		  */
-    refresh();			/* Print it on to the real screen */
-    def_prog_mode();		/* Save the tty modes		  */
-    endwin();			/* End curses mode temporarily	  */
-    system("/bin/sh");		/* Do whatever you like in cooked mode */
-    reset_prog_mode();		/* Return to the previous tty mode*/
-    /* stored by def_prog_mode() 	  */
-    refresh();			/* Do refresh() to restore the	  */
-    /* Screen contents		  */
-    printw("Another String\n");	/* Back to curses use the full    */
-    refresh();			/* capabilities of curses	  */
-    endwin();			/* End curses mode		  */
+/**
+ *
+ * @param time 秒
+ */
+void timer(long time) {
+    clock_t start;
+    start = clock();
+    while (1) {
+        if ((clock() - start) >= (time * CLOCKS_PER_SEC)) {
+            break;
+        }
+    }
+}
 
+
+int main() {
+
+    for (int i = 0; i < 10; ++i) {
+        timer(1);
+        printf("%d\n", i);
+    }
+    getchar();
     return 0;
 }

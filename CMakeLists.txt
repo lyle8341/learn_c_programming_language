@@ -27,7 +27,8 @@ add_executable(learn_c_programming_language main.c
         snake/v1.h
         snake/v2.c
         snake/v2.h
-        )
+        define.hpp
+)
 
 
 #在本机查找依赖

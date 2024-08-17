@@ -662,18 +662,144 @@ enum Month {
   }
   ```
 
++ 预定义宏
+  + ```
+    __LINE__ 行号
+    __FILE__ 源文件名
+    __DATE__ 源程序创建的日期
+    __TIME__ 创建的时间
+    __FUNCTION__ 当前函数名
 
+    ```
 
++ 定义宏
+  > #define 宏名 被替换的内容
+  ```c
+  #define PI 3.14
+  int main() {
+    printf("%.2f", PI);
+    return 0;
+  }
+  ```
+  + 宏定义后不要加分号
+  + 如果宏定义是一个表达式，用()包裹起来
++ 带参数宏
+  + #define MAX(a,b) ((a)>(b)?(a):(b))
+  + 与类型无关
+  + ```c
+    #define MALLOC(type, size) malloc(sizeof(type)*size)
+    int main() {
+      void *pVoid = MALLOC(int, 10);
+      void *pVoid1 = MALLOC(char, 20);
+      return 0;
+    }
+    ```
+    
+  + ```c
+    #define foreach(val, arr) \
+    for(size_t i=0, ctr=0; i< sizeof(arr)/sizeof(arr[0]);i++,ctr=0) \
+        for(val= arr[i]; ctr<1; ++ctr)
+    
+    int main() {
+        int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        foreach(int a, arr) {
+            printf("%d ", a);
+        }
+        char *str[] = {"hello", "world"};
+        foreach(char *val, str){
+                puts(val);
+        }
+        return 0;
+    }
+    ```
+  
++ 连接符
+  ```c
+  //# 把参数转成字符串，变量不行
+  #define toString(val) #val
+  //## 连接参数（拼接一个新的标识符）
+  #define VAR(v) v##_jpg
+  //#@ 不一定支持
+  int main() {
+      printf("%s\n", toString(1234));
+      int tel  = 556;
+      printf("%s\n", toString(tel));//错误用法
+      int VAR(god) = 20;
+      printf("%d %d\n", VAR(god), god_jpg);
+      return 0;
+  }
+  ```
 
++ 条件编译
+  + error
+    + ```c
+      #ifndef cplusplus
+      #error EasyX is only for c++
+      #endif
+      ```
+      
+  + if
+    + ```c
+      #define VERSION 6
+      int main() {
+        #if VERSION == 1
+          printf("1\n");
+        #elif VERSION == 2
+          printf("2\n");
+        #else
+          printf("不知道");
+        #endif
+      }
+      ```
 
+  + ifdef
+    + ```c
+      //宏也可以没有任何值
+      #define Cplusplus
+      int main() {
+        #ifdef Cplusplus
+          printf("已定义");
+        #else
+          printf("no def");
+        #endif
+        return 0;
+      }
+      ```
 
+# pragma
++ #pragma once 指定该文件在编译源代码时仅由编译器包含（打开）一次
 
-
-
-
-
-
-
++ stdarg.h
+  + v1
+    + ```c
+      #include <stdarg.h>
+      void print(int a, ...) {
+        va_list ap; //char * 类型
+        va_start(ap, a);//准备开始遍历
+        int varInt = va_arg(ap, int);
+        char *varChar = va_arg(ap, char*);
+        printf("%d %s\n", varInt, varChar);
+        va_end(ap);
+      }
+      int main() {
+        print(2, 34, "wonderful");
+        return 0;
+      }
+      ```
+  + v2
+    + ```c
+      #include <stdarg.h>
+      void print(const char *format, ...) {
+        va_list ap; //char * 类型
+        va_start(ap, format);//准备开始遍历
+        vprintf(format, ap);
+        va_end(ap);
+      }
+      int main() {
+        print("%d %d %d %s %s", 4, 5, 6, "wonderful","great");
+        return 0;
+      }
+      ```
 
 
 
