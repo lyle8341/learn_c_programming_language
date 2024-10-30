@@ -1,5 +1,9 @@
-#include <io.h>
 
-int main() {
-    write(1, "HiWorld\n", 8);
+
+
+
+
+int main(void) {
+
+    return 0;
 }
