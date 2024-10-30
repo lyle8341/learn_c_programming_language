@@ -22,21 +22,34 @@ file(GLOB_RECURSE SRC ${PROJECT_SOURCE_DIR}/*.c)
 #message(STATUS "搜索结果:\t${SRC}")
 
 add_executable(learn_c_programming_language main.c
-        snake/v1.c
-        snake/v1.h
-        snake/v2.c
-        snake/v2.h
+#        snake/v1.c
+#        snake/v1.h
+#        snake/v2.c
+#        snake/v2.h
         define.hpp
 )
 
+if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+    list(APPEND SOURCES "snake/v1.c")
+    list(APPEND SOURCES "snake/v1.h")
+    list(APPEND SOURCES "snake/v2.c")
+    list(APPEND SOURCES "snake/v2.h")
+endif()
+
+# 将源文件添加到可执行文件项目中
+target_sources(learn_c_programming_language PRIVATE ${SOURCES})
 
 #在本机查找依赖
-find_package(Curses REQUIRED) #查找Curses库
-message(STATUS "CURSES_INCLUDE_DIR:\t${CURSES_INCLUDE_DIR}")
-include_directories(${CURSES_INCLUDE_DIR}) #添加Curses库的头文件目录
-message(STATUS "CURSES_LIBRARY:\t${CURSES_LIBRARY}")
-target_link_libraries(learn_c_programming_language ${CURSES_LIBRARY}) #链接Curses库
+if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+    find_package(Curses REQUIRED) #查找Curses库
+    message(STATUS "CURSES_INCLUDE_DIR:\t${CURSES_INCLUDE_DIR}")
+    include_directories(${CURSES_INCLUDE_DIR}) #添加Curses库的头文件目录
+    message(STATUS "CURSES_LIBRARY:\t${CURSES_LIBRARY}")
+    target_link_libraries(learn_c_programming_language ${CURSES_LIBRARY}) #链接Curses库
+endif()
 
+if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+    set(GCC_COVERAGE_COMPILE_FLAGS "-lncurses")
+endif()
 
-set(GCC_COVERAGE_COMPILE_FLAGS "-lncurses")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
