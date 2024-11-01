@@ -878,3 +878,26 @@ enum Month {
 > 1. brew install binutils
 
 > 2. objdump -dS main
+
+
+
+
+## CPU内存屏障
++ 告诉编译器不要打乱执行顺序
+  ```c
+  //该条内嵌汇编只是告诉编译器不要打乱代码顺序
+  asm("" ::: "memory");
+  ```
++ 内存屏障
+```c
+//该条内嵌汇编会生成汇编指令 mfence
+asm("mfence" ::: "memory");
+```
+
+
++ **clion控制台中文乱码**
+  + 双击Shift，在弹出的搜索栏中，输入"Registry"，点击"Registry…"进入软件注册表界面，去掉"run.processes.with.pty"中默认的对勾，即不要选中该项。
+
+
+
+

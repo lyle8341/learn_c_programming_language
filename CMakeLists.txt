@@ -27,7 +27,7 @@ add_executable(learn_c_programming_language main.c
 #        snake/v2.c
 #        snake/v2.h
         define.hpp
-)
+        sync-share/atomic.c sync-share/mutex.c)
 
 if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
     list(APPEND SOURCES "snake/v1.c")
