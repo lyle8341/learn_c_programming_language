@@ -898,6 +898,10 @@ asm("mfence" ::: "memory");
 + **clion控制台中文乱码**
   + 双击Shift，在弹出的搜索栏中，输入"Registry"，点击"Registry…"进入软件注册表界面，去掉"run.processes.with.pty"中默认的对勾，即不要选中该项。
 
++ gcc 编译时使用-D参数可以传参给程序
+  + gcc -DDEBUG      #-D后面直接跟宏命，相当于定义这个宏，默认这个宏的内容是1
+  + gcc -DNAME=Peter #-D后面跟 key=value 表示定义key这个宏，它的内容是value
 
 
-
++ CPU寄存器解释
+  + rip: 寄存器存放着cpu下一条指令的地址
